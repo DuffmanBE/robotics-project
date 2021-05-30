@@ -14,7 +14,27 @@ def recv(s):
 			coordinates = data["payload"]
 			sense.clear()
 			sense.set_pixel(coordinates[0], coordinates[1], 255, 0, 0)
-	return data
+	o = sense.get_orientation()
+	acceleration = sense.get_accelerometer_raw()
+	pitch = o["pitch"]
+	roll = o["roll"]
+	yaw = o["yaw"]
+	x = acceleration["x"]
+	y = acceleration["y"]
+	z = acceleration["z"]
+
+	s.sendall(pickle.dumps({
+		"orientation": {
+			"pitch": pitch,
+			"roll": roll,
+			"yaw": yaw
+		},
+		"accelerometer": {
+			"x": x,
+			"y": y,
+			"z": z
+		}
+	}))
 
 # Create server
 
