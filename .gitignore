@@ -1,3 +1,5 @@
 venv/
 server.pyc
 .idea/
+__pycache__/
+logs/
